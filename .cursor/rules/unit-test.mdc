@@ -24,6 +24,7 @@ alwaysApply: false
 
 ## AAAパターン
 - Arrange（準備）、Act（実行）、Assert（確認）の3フェーズでテストを書く。
+- AAAパターンのテスト実装には[@akfm/test-utils](mdc:https:/www.npmjs.com/package/@akfm/test-utils)の利用を推奨。
 - 各フェーズごとにコメントを記載し、複数の観点を1テストに詰め込まない。
 
 ## Storybookとの連携
@@ -33,8 +34,6 @@ alwaysApply: false
 
 ## テスト実装例
 - テスト対象のコンポーネントは、propsやcontextなどの依存を明示的に受け取る形にする。
-- SWRやmswなどのツールを活用し、API通信や副作用をモックする。
-- テストケースごとにキャッシュや副作用をリセットする仕組みを用意する。
 
 ## その他
 - テスト容易性を高めるため、Container/Presentationalパターンや責務分離を意識する。

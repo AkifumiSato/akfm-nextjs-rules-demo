@@ -29,7 +29,6 @@ alwaysApply: true
 - 細粒度なコンポーネント分割によりN+1データフェッチが発生しやすくなる。
 - バックエンドAPIでバッチ取得エンドポイントを用意し、フロントではDataLoader等でバッチ化する。
 - DataLoaderのインスタンスはリクエスト単位で生成（React.cache等を活用）。
-- Eager Loading（最初の1回で全データ取得）とLazy Loading（必要な時に都度取得）のバランスを考慮。
 - God API（責務過多API）にならないよう注意。
 
 ## 4. Request Memoizationの活用
@@ -42,8 +41,6 @@ alwaysApply: true
 ## 5. ユーザー操作とデータフェッチ
 - ユーザー操作に基づくデータフェッチ・再レンダリングはServer Actionsと`useActionState()`を活用。
 - 検索やフォーム送信など、ユーザー入力に応じてサーバー側でデータ取得・状態更新を行う。
-- 状態をURLに保存したい場合は`router.replace()`等でURLを更新し、ページ全体を再レンダリング。
-- サイドナビやモーダル等、URLシェア不要なケースは`useActionState()`中心でOK。
 - データ操作後の再取得・再レンダリングは`revalidatePath()`や`revalidateTag()`とServer Actionsを組み合わせて実現。
 
 ## 6. その他の設計・コーディング指針
@@ -51,15 +48,13 @@ alwaysApply: true
 - Container/Presentationalパターンを徹底し、ロジックとUI表示を分離。
 - テスト容易性を高めるため、propsの受け渡しや副作用の分離を意識。
 - API設計はGod API/Chatty APIにならないよう責務分割・粒度に注意。
-- GraphQLやDataLoader等の導入はパフォーマンス・保守性・実装コストを考慮して判断。
+- DataLoader等の導入はパフォーマンス・保守性・実装コストを考慮して判断。
 
 ## 7. SuspenseとStreaming
 - Dynamic Renderingで重いデータフェッチやレンダリングが発生する場合は、<Suspense>で遅延させStreaming SSRを活用する。
 - <Suspense>のfallbackで即座にレスポンスを返し、重いコンポーネントは後からストリーミングで描画。
 - データフェッチ単位でコンポーネント分割していれば、<Suspense>境界を追加するだけでStreaming SSRが容易に実現可能。
 - fallbackによるLayout Shift（CLS）とTTFB短縮のトレードオフを考慮し、遅延させるべきか判断する。
-  - 目安: 200ms程度なら遅延不要、1s超なら遅延推奨。
-- Streaming SSRによるSEOへの影響は少ないとされるが、最新のGoogleのindexing仕様も随時確認する。
 
 ### 実装例
 - <Suspense fallback={<div>loading...</div>}><LazyComponent /></Suspense> のように、重い処理を遅延レンダリング。

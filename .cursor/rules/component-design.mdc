@@ -11,14 +11,13 @@ alwaysApply: false
 
 ## 1. Container/Presentationalパターンの徹底
 - データ取得・ロジックはContainer Components、UI表示はPresentational Componentsに分離する。
-- Container ComponentsはServer Componentsとして実装し、データフェッチや状態管理を担う。
-- Presentational Componentsはpropsで受け取ったデータを表示するだけの純粋な関数とし、テスト容易性を高める。
+- Container ComponentsはServer Componentsとして実装し、データフェッチを担う。
 - Presentational Componentsは`"use client";`が不要な場合はShared Components（Server Components）として実装。
 - テスト容易性の観点から、Container/Presentational分離を徹底する。
 
 ## 2. Client Componentsのユースケース
 - クライアントサイド処理（イベントハンドラ、状態hooks、ブラウザAPI利用）が必要な場合のみClient Componentsを利用。
-- サードパーティ製のClient Componentsを利用する場合は`"use client";`でClient Boundaryを明示。
+- サードパーティ製のClient Componentsを利用する場合、必要に応じて`"use client";`でClient Boundaryを明示。
 - RSC Payload転送量削減のため、繰り返しレンダリングされる大きなUIはClient Components化を検討。
 - Client Componentsは必要最小限にとどめ、Server Components中心の設計を基本とする。
 
@@ -37,7 +36,6 @@ alwaysApply: false
 
 ## 5. テスト容易性とプライベート定義
 - Presentational ComponentsはContainer Componentsの実装詳細（プライベート定義）として扱う。
-- 外部からのimportを制限したい場合は[eslint-plugin-import-access](mdc:https:/github.com/uhyo/eslint-plugin-import-access)等を活用。
 - テスト容易性を高めるため、Container/Presentational分離・props受け渡し・副作用分離を徹底。
 
 ## 6. トレードオフ・注意点
