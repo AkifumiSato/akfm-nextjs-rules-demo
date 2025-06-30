@@ -1,0 +1,57 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Next.jsコンポーネント設計・コーディングルール（App Router/Server Components 詳細版）
+
+このルールは[docs/akfm-knowledge/nextjs-basic-principle](mdc:docs/akfm-knowledge/nextjs-basic-principle)配下の各mdファイル（特にpart_2_container_presentational_pattern, part_2_container_1st_design, part_2_composition_pattern, part_2_client_components_usecase）を参考にしています。
+
+---
+
+## 1. Container/Presentationalパターンの徹底
+- データ取得・ロジックはContainer Components、UI表示はPresentational Componentsに分離する。
+- Container ComponentsはServer Componentsとして実装し、データフェッチや状態管理を担う。
+- Presentational Componentsはpropsで受け取ったデータを表示するだけの純粋な関数とし、テスト容易性を高める。
+- Presentational Componentsは`"use client";`が不要な場合はShared Components（Server Components）として実装。
+- テスト容易性の観点から、Container/Presentational分離を徹底する。
+
+## 2. Client Componentsのユースケース
+- クライアントサイド処理（イベントハンドラ、状態hooks、ブラウザAPI利用）が必要な場合のみClient Componentsを利用。
+- サードパーティ製のClient Componentsを利用する場合は`"use client";`でClient Boundaryを明示。
+- RSC Payload転送量削減のため、繰り返しレンダリングされる大きなUIはClient Components化を検討。
+- Client Componentsは必要最小限にとどめ、Server Components中心の設計を基本とする。
+
+## 3. Compositionパターンの活用
+- Client ComponentsはServer Componentsをimportできない制約があるため、children等のpropsでServer Componentsを受け渡すCompositionパターンを活用。
+- コンポーネントツリーの末端をClient Componentsにすることで、Client Boundaryを下層に限定。
+- 上位層でClient Componentsが必要な場合も、CompositionパターンでServer Componentsをchildrenとして渡す設計を推奨。
+- 設計初期からCompositionパターンを意識し、後からの大幅な手戻りを防ぐ。
+
+## 4. Container 1stな設計手順
+- 画面設計はまずContainer Componentsのツリー構造を書き出し、Containerのみで設計する。
+- Presentational/Client Componentsは後から追加・分割する。
+- Container/Presentational/Compositionパターンを組み合わせ、手戻りの少ない設計順序を徹底。
+- ディレクトリ構成はContainer単位で分割し、Container配下にPresentational/Client Componentsをコロケーション。
+- `_containers`や`_components`等のPrivate Folderを活用し、責務ごとに整理。
+
+## 5. テスト容易性とプライベート定義
+- Presentational ComponentsはContainer Componentsの実装詳細（プライベート定義）として扱う。
+- 外部からのimportを制限したい場合は[eslint-plugin-import-access](mdc:https:/github.com/uhyo/eslint-plugin-import-access)等を活用。
+- テスト容易性を高めるため、Container/Presentational分離・props受け渡し・副作用分離を徹底。
+
+## 6. トレードオフ・注意点
+- Client Boundaryの形成位置に注意し、Server Componentsのメリットを最大化。
+- Compositionパターンを後から適用する場合の手戻りリスクに注意。
+- エコシステム（RTL/Storybook等）のServer Components対応状況も随時確認。
+
+---
+
+## 参考mdファイル
+- [part_2_container_presentational_pattern.md](mdc:docs/akfm-knowledge/nextjs-basic-principle/part_2_container_presentational_pattern.md)
+- [part_2_container_1st_design.md](mdc:docs/akfm-knowledge/nextjs-basic-principle/part_2_container_1st_design.md)
+- [part_2_composition_pattern.md](mdc:docs/akfm-knowledge/nextjs-basic-principle/part_2_composition_pattern.md)
+- [part_2_client_components_usecase.md](mdc:docs/akfm-knowledge/nextjs-basic-principle/part_2_client_components_usecase.md)
+
+
+</rewritten_file>

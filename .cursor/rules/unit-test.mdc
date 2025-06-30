@@ -1,0 +1,41 @@
+---
+description: 単体テストに関する設計やルールです。
+globs: 
+alwaysApply: false
+---
+# フロントエンド・ユニットテスト設計・コーディングルール
+
+このルールは[docs/akfm-knowledge/articles/frontend-unit-testing.md](mdc:docs/akfm-knowledge/articles/frontend-unit-testing.md)を参考にしています。
+
+## 基本方針
+- ユニットテストは「自動テスト」における単体テストを指す。
+- テストの目的は主にリグレッション（退行）の検出と、持続可能な開発の担保。
+- テスト容易性を設計段階から重視する。
+
+## 良い単体テストの指標
+- 退行に対する保護
+- リファクタリングへの耐性
+- 高速なフィードバック
+- 保守のしやすさ
+
+## テストの単位
+- テストの「単体」は、テストケースごとに依存を分離できる最小単位（古典学派的アプローチ）を推奨。
+- モックやスタブを活用し、他のテストケースに影響しないようにする。
+
+## AAAパターン
+- Arrange（準備）、Act（実行）、Assert（確認）の3フェーズでテストを書く。
+- 各フェーズごとにコメントを記載し、複数の観点を1テストに詰め込まない。
+
+## Storybookとの連携
+- StorybookのCSF3.0形式を活用し、コンポーネントの代表的な状態（成功/失敗など）をstoryとして定義する。
+- `composeStories`等を使い、Storybookのstoryをテストで再利用する。
+- Storybookは見た目やa11yの検証、Jestは振る舞いや構造の検証を担う。
+
+## テスト実装例
+- テスト対象のコンポーネントは、propsやcontextなどの依存を明示的に受け取る形にする。
+- SWRやmswなどのツールを活用し、API通信や副作用をモックする。
+- テストケースごとにキャッシュや副作用をリセットする仕組みを用意する。
+
+## その他
+- テスト容易性を高めるため、Container/Presentationalパターンや責務分離を意識する。
+- 詳細な実装例やパターンは[frontend-unit-testing.md](mdc:docs/akfm-knowledge/articles/frontend-unit-testing.md)を参照。

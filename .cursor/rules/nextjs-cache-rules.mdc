@@ -1,0 +1,55 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Next.jsキャッシュ設計・運用ルール（App Router/Server Components 詳細版）
+
+このルールは[docs/akfm-knowledge/nextjs-basic-principle](mdc:docs/akfm-knowledge/nextjs-basic-principle)配下の各mdファイル（特にpart_3_static_rendering_full_route_cache, part_3_dynamic_rendering_data_cache, part_3_router_cache, part_3_data_mutation）を参考にしています。
+
+---
+
+## 1. Static RenderingとFull Route Cache
+- App RouterはデフォルトでStatic Rendering（SSG/ISR相当）を採用。
+- Static Rendering時はHTMLやRSC Payloadのキャッシュ（Full Route Cache）が生成される。
+- Full Route Cacheは`revalidatePath()`や`revalidateTag()`でオンデマンドrevalidate可能。
+- Route Segment Configの`revalidate`で時間ベースrevalidateも設定可能。
+- ユーザー固有情報を含まないページは積極的にStatic Rendering/Full Route Cacheを活用。
+
+## 2. Dynamic RenderingとData Cache
+- Dynamic Renderingはリクエストごとにレンダリングされるが、Data Cacheを活用してパフォーマンス最適化。
+- サーバー上の`fetch()`はData Cacheに対応し、`cache`/`next.revalidate`/`next.tags`等のオプションで挙動を制御。
+- `unstable_cache()`でDBアクセス等もData Cache化可能（v15以降は"use cache"/Dynamic IO推奨）。
+- Data Cacheは`revalidatePath()`/`revalidateTag()`でオンデマンドrevalidate可能。
+- Data Cacheのオプトアウト（`cache: "no-store"`や`next.revalidate: 0`）はDynamic Renderingへの切り替えを意味するので注意。
+- PPR（Partial Pre Rendering）を活用すれば、Suspense境界単位でStatic/Dynamic Renderingを混在可能。
+
+## 3. Router Cache（クライアントキャッシュ）
+- Router Cacheはクライアントサイドのキャッシュで、prefetchやSoft Navigation時にRSC Payloadを保持。
+- v14.2以降は`staleTimes`で有効期間を設定可能。
+- キャッシュの有効期限や挙動はNext.jsのバージョンごとに異なるため、公式ドキュメントやリリースノートを随時確認。
+- Router Cacheの破棄は`router.refresh()`やServer Actionsの`revalidatePath()`/`revalidateTag()`/`cookies.set()`等で実施。
+- Router Cacheの破棄はユーザー端末単位であり、全ユーザー一括破棄は不可。
+- ブラウザバック時はRouter Cacheが優先利用され、スクロール位置も復元される。
+
+## 4. データ操作とキャッシュのrevalidate
+- データ操作（作成・更新・削除）はServer Actionsで実装し、必要に応じて`revalidatePath()`/`revalidateTag()`を呼び出す。
+- サイト外で発生するデータ操作（例: CMS更新）はRoute Handler経由でrevalidate APIを用意し、Web hook等で呼び出す。
+- revalidateの多用はパフォーマンス劣化の原因となるため、必要最小限に。
+- Server Actionsでrevalidateを呼ぶとRouter Cacheも破棄されるため、画面遷移やスクロール復元に注意。
+
+## 5. トレードオフ・注意点
+- Dynamic APIsや`no-store`なfetch等で意図せずDynamic Rendering/キャッシュ無効化になることに注意。
+- PPRやrevalidateの仕組みはバージョンアップで挙動が変わる可能性があるため、常に最新情報を確認。
+- Router Cacheの挙動は複雑なため、公式ドキュメントや検証記事も参考にする。
+
+---
+
+## 参考mdファイル
+- [part_3_static_rendering_full_route_cache.md](mdc:docs/akfm-knowledge/nextjs-basic-principle/part_3_static_rendering_full_route_cache.md)
+- [part_3_dynamic_rendering_data_cache.md](mdc:docs/akfm-knowledge/nextjs-basic-principle/part_3_dynamic_rendering_data_cache.md)
+- [part_3_router_cache.md](mdc:docs/akfm-knowledge/nextjs-basic-principle/part_3_router_cache.md)
+- [part_3_data_mutation.md](mdc:docs/akfm-knowledge/nextjs-basic-principle/part_3_data_mutation.md)
+
+
+</rewritten_file>

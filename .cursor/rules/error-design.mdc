@@ -1,0 +1,44 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Next.jsエラーハンドリング設計・運用ルール（App Router/Server Components 詳細版）
+
+このルールは[docs/akfm-knowledge/nextjs-basic-principle/part_5_error_handling.md](mdc:docs/akfm-knowledge/nextjs-basic-principle/part_5_error_handling.md)を参考にしています。
+
+---
+
+## 1. エラーの分類と基本方針
+- App Routerのエラーは「Client Components」「Server Components」「Server Actions」で分けて考える。
+- 特にServer Components/Server Actionsは外部データ操作が多く、エラーハンドリングが重要。
+
+## 2. クライアントサイドのレンダリングエラー
+- App Router標準のエラーハンドリングはサーバーサイドエラーのみ対応。
+- クライアントサイドのレンダリングエラーは独自に<ErrorBoundary>を定義して対応。
+- クライアントエラーの実態把握にはRUM（Real User Monitoring）等の導入も検討。
+
+## 3. Server Componentsのエラー
+- Server Componentsのエラー時UIはRoute Segment単位のerror.tsxで定義。
+- error.tsxはClient Componentsで、propsでreset()を受け取りリトライ可能なUIを実装。
+- 404 Not FoundはnotFound() API＋not-found.tsxでUIを定義。
+- notFound()利用時はSEO観点でmetaタグ挿入等の挙動に注意。
+- unauthorized()/forbidden()も利用可能だが、現状experimentalなため注意。
+
+## 4. Server Actionsのエラー
+- Server Actionsのエラーは「予測可能なエラー」と「予測不能なエラー」で分けて考える。
+- 予測可能なエラーはthrowせず、戻り値でエラーを表現（例: バリデーションエラーはreturnで返す）。
+- 予測不能なエラーはthrowし、error.tsxでUI表示。
+- error.tsxが表示されるとフォーム入力内容が失われる等のUX悪化に注意。
+- conform等のformライブラリ利用時はsubmission.reply()等でエラーを返す。
+
+## 5. トレードオフ・注意点
+- クライアントサイドのエラーはサーバーに記録されないため、監視体制を別途検討。
+- notFound()等のAPIは利用箇所や状況によりHTTPステータスやmetaタグ挙動が異なるため、SEO要件に注意。
+- Server Actionsのエラー設計はUX観点（入力内容の保持・再試行性）を重視。
+- unauthorized()/forbidden()は今後仕様変更の可能性あり。
+
+---
+
+## 参考mdファイル
+- [part_5_error_handling.md](mdc:docs/akfm-knowledge/nextjs-basic-principle/part_5_error_handling.md)
