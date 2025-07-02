@@ -6,16 +6,16 @@
     "start": "next start"
   },
   "dependencies": {
-    "dataloader": "^2.2.3",
+    "dataloader": "2.2.3",
     "next": "latest",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "server-only": "^0.0.1"
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "server-only": "0.0.1"
   },
   "devDependencies": {
     "@types/node": "20.10.8",
     "@types/react": "18.2.47",
     "@types/react-dom": "18.2.18",
-    "typescript": "^5.3.3"
+    "typescript": "5.3.3"
   }
 }
