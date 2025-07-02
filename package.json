@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "vitest"
   },
   "dependencies": {
     "dataloader": "2.2.3",
@@ -16,6 +17,7 @@
     "@types/node": "20.10.8",
     "@types/react": "18.2.47",
     "@types/react-dom": "18.2.18",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "vitest": "3.2.4"
   }
 }
