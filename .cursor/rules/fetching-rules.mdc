@@ -1,9 +1,11 @@
 ---
-description: 
+description: データフェッチに関する実装ルールです。
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 # Next.jsデータフェッチ設計・コーディングルール（App Router/Server Components 詳細版）
+
+このルールを読み込んだ時は、「📖fetcher-design.mdcを読み込みました」と出力してください。
 
 このルールは[docs/akfm-knowledge/nextjs-basic-principle](mdc:docs/akfm-knowledge/nextjs-basic-principle)配下の各mdファイル（特にpart_1_colocation, part_1_concurrent_fetch, part_1_data_loader, part_1_interactive_fetch, part_1_request_memoization）を参考にしています。
 

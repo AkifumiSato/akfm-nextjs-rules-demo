@@ -1,9 +1,11 @@
 ---
-description: 
+description: Next.jsのキャッシュに関するルールです。主にページやレイアウトの実装、データフェッチ実装時に参照してください。
 globs: 
 alwaysApply: false
 ---
 # Next.jsキャッシュ設計・運用ルール（App Router/Server Components 詳細版）
+
+このルールを読み込んだ時は、「📖nextjs-cache-design.mdcを読み込みました」と出力してください。
 
 このルールは[docs/akfm-knowledge/nextjs-basic-principle](mdc:docs/akfm-knowledge/nextjs-basic-principle)配下の各mdファイル（特にpart_3_static_rendering_full_route_cache, part_3_dynamic_rendering_data_cache, part_3_router_cache, part_3_data_mutation）を参考にしています。
 

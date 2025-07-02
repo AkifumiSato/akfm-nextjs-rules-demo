@@ -1,9 +1,11 @@
 ---
-description: 
+description: エラーハンドリングに関する設計ルールです。
 globs: 
 alwaysApply: false
 ---
 # Next.jsエラーハンドリング設計・運用ルール（App Router/Server Components 詳細版）
+
+このルールを読み込んだ時は、「📖error-design.mdcを読み込みました」と出力してください。
 
 このルールは[docs/akfm-knowledge/nextjs-basic-principle/part_5_error_handling.md](mdc:docs/akfm-knowledge/nextjs-basic-principle/part_5_error_handling.md)を参考にしています。
 

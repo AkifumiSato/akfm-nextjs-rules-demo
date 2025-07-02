@@ -5,6 +5,8 @@ alwaysApply: false
 ---
 # フロントエンド・ユニットテスト設計・コーディングルール
 
+このルールを読み込んだ時は、「📖unit-test.mdcを読み込みました」と出力してください。
+
 このルールは[docs/akfm-knowledge/articles/frontend-unit-testing.md](mdc:docs/akfm-knowledge/articles/frontend-unit-testing.md)を参考にしています。
 
 ## 基本方針
