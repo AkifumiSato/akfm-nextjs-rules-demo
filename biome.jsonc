@@ -1,0 +1,47 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "useSortedKeys": "on"
+      }
+    },
+    "enabled": true
+  },
+  "files": {
+    "includes": [
+      "**",
+      "!public/**",
+      "!package.json",
+      "!package-lock.json",
+      "!docs/akfm-knowledge/**",
+      "!.next"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": true,
+    "includes": ["**", "!node_modules/**"],
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "includes": ["**", "!node_modules/**"],
+    "rules": {
+      "recommended": true
+    }
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": false,
+    "useIgnoreFile": false
+  }
+}
