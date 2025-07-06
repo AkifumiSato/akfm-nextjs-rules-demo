@@ -8,12 +8,12 @@
 - `pnpm dev` - Turbopack付きの開発サーバーを起動
 - `pnpm build` - 本番用ビルド
 - `pnpm start` - 本番サーバーを起動
-- `pnpm test` - Vitestでテストを実行
-- `pnpm check` - Biomeのlinter/formatterをチェック
+- `pnpm test:run` - Vitestでテストを実行
 - `pnpm check:fix` - Biomeのチェックと自動修正を実行
+- `pnpm typecheck` - TypeScriptの型チェック
 
 ### テスト
-- `pnpm test`でVitestを使用してテスト
+- `pnpm test:run`でVitestを使用してテスト
 - テスト環境はjsdomで構成
 - セットアップファイル: `vitest.setup.ts`
 - テストはコンポーネントと同じ場所に配置（例：`app/page.test.tsx`）
