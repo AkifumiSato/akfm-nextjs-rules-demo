@@ -1,0 +1,1 @@
+export { PostDetailContainer } from "./container";
