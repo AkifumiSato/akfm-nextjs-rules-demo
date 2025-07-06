@@ -33,6 +33,9 @@ importers:
         specifier: 4.1.11
         version: 4.1.11
     devDependencies:
+      '@akfm/test-utils':
+        specifier: 0.1.1
+        version: 0.1.1
       '@biomejs/biome':
         specifier: 2.0.6
         version: 2.0.6
@@ -71,6 +74,9 @@ packages:
 
   '@adobe/css-tools@4.4.3':
     resolution: {integrity: sha512-VQKMkwriZbaOgVCby1UDY/LDk5fIjhQicCvVPFqfe+69fWaPWydbWJ3wRt59/YzIwda1I81loas3oCoHxnqvdA==}
+
+  '@akfm/test-utils@0.1.1':
+    resolution: {integrity: sha512-/IWUKBXLYc75MZfUM4VmUimaTK6bWtU3awLkMT69XfTBYPbhH5p/IUhtZPoF8Z4+VGEEWIpebROw9V24SbeDDw==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -1582,6 +1588,8 @@ packages:
 snapshots:
 
   '@adobe/css-tools@4.4.3': {}
+
+  '@akfm/test-utils@0.1.1': {}
 
   '@alloc/quick-lru@5.2.0': {}
 
