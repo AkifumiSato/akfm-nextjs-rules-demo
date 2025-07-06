@@ -1,22 +1,26 @@
 import type { Post } from "./types";
 
-interface PostsListProps {
+type PostsListProps = {
   posts: Post[];
-}
+  total: number;
+};
 
-export function PostsList({ posts }: PostsListProps) {
+export function PostsList({ posts, total }: PostsListProps) {
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {posts.map((post) => (
-        <PostCard key={post.id} post={post} />
-      ))}
+    <div className="flex flex-col gap-4">
+      <p className="text-gray-600">{total}件</p>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <PostCard key={post.id} post={post} />
+        ))}
+      </div>
     </div>
   );
 }
 
-interface PostCardProps {
+type PostCardProps = {
   post: Post;
-}
+};
 
 function PostCard({ post }: PostCardProps) {
   return (

@@ -1,4 +1,4 @@
-export interface Post {
+export type Post = {
   id: number;
   title: string;
   body: string;
@@ -9,11 +9,11 @@ export interface Post {
   };
   views: number;
   userId: number;
-}
+};
 
-export interface PostsResponse {
+export type PostsResponse = {
   posts: Post[];
   total: number;
   skip: number;
   limit: number;
-}
+};

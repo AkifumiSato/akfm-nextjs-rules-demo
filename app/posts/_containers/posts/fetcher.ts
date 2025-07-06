@@ -1,3 +1,4 @@
+import { FetchError } from "../../../lib/fetch-error";
 import type { PostsResponse } from "./types";
 
 export async function fetchPosts(): Promise<PostsResponse> {
@@ -6,7 +7,7 @@ export async function fetchPosts(): Promise<PostsResponse> {
   });
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch posts: ${res.status}`);
+    throw new FetchError("Failed to fetch posts", res.status);
   }
 
   return res.json();
