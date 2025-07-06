@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Post } from "./types";
 
 type PostsListProps = {
@@ -25,7 +26,11 @@ type PostCardProps = {
 function PostCard({ post }: PostCardProps) {
   return (
     <article className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-      <h2 className="text-xl font-semibold mb-3 text-gray-800">{post.title}</h2>
+      <Link href={`/posts/${post.id}`}>
+        <h2 className="text-xl font-semibold mb-3 text-gray-800 hover:text-blue-600 cursor-pointer">
+          {post.title}
+        </h2>
+      </Link>
       <p className="text-gray-600 mb-4 line-clamp-3">{post.body}</p>
 
       <div className="flex flex-wrap gap-2 mb-4">
