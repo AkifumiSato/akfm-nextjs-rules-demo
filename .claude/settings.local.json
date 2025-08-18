@@ -4,8 +4,19 @@
       "Bash(pnpm check:*)",
       "Bash(pnpm test:*)",
       "Bash(pnpm build:*)",
-      "Bash(pnpm typecheck:*)"
+      "Bash(pnpm typecheck:*)",
+      "mcp__serena__check_onboarding_performed",
+      "mcp__serena__onboarding",
+      "mcp__serena__list_dir",
+      "mcp__serena__get_symbols_overview",
+      "mcp__serena__find_symbol",
+      "mcp__serena__write_memory",
+      "mcp__serena__read_memory"
     ],
     "deny": []
-  }
+  },
+  "enabledMcpjsonServers": [
+    "playwright",
+    "serena"
+  ]
 }
